@@ -1,14 +1,13 @@
 package com.app.App.entities;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
 public class User {
-    @Id
+    @Id  @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
     @Column(name = "firstName")
@@ -19,8 +18,6 @@ public class User {
     private String password;
     @Column(name = "email")
     private String email;
-    @Column(name = "dept")
-    private Long dept;
     @Column(name = "joined_at")
     private LocalDate joined;
 
@@ -59,17 +56,8 @@ public class User {
     public String getEmail() {
         return email;
     }
-
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public Long getDept() {
-        return dept;
-    }
-
-    public void setDept(Long dept) {
-        this.dept = dept;
     }
 
     public LocalDate getJoined() {
