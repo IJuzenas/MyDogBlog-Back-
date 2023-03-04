@@ -3,15 +3,16 @@ package com.app.App.controllers;
 import com.app.App.entities.UserDto;
 import com.app.App.services.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/users")
 public class UserController {
+    @Autowired
     private UserService userService;
 
     @GetMapping("/all")
@@ -19,15 +20,15 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @GetMapping("/create")
-    public String createNewUser(@RequestBody UserDto user){
+    @PostMapping()
+    public String createUser(@RequestBody UserDto user){
         return userService.createUser(user);
     }
 
-    @PostMapping("/register")
-    public String registerNewUser(@RequestParam("name") String name,
-                                  @RequestParam ("email")String email,
-                                  @RequestParam ("password") String password) {
+    @PostMapping("/create")
+    public String createUser(@RequestParam(name = "name", required = false) String name,
+                                  @RequestParam (value = "email",required = false) String email,
+                                  @RequestParam (value = "password",required = false) String password) {
       UserDto newDto = UserDto.builder()
               .name(name)
               .email(email)
