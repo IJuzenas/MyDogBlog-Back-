@@ -1,36 +1,39 @@
 package com.app.App.controllers;
 
-import com.app.App.entities.User;
-import com.app.App.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.app.App.entities.UserDto;
+import com.app.App.services.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
+@RequestMapping("/users")
 public class UserController {
-    private UserRepository userRepository;
-    @Autowired
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private UserService userService;
 
     @GetMapping("/all")
-    public List<User> getAll() {
-        return userRepository.findAll();
+    public List<UserDto> getAllUsers() {
+        return userService.getAllUsers();
     }
-    @PostMapping("/create")
-    public String createNewUser(String firstName, String lastName, String email, String password) {
-        User newUser = new User();
-        newUser.setFirstName(firstName);
-        newUser.setLastName(lastName);
-        newUser.setEmail(email);
-        newUser.setPassword(password);
-        userRepository.save(newUser);
-        String message = "New User has been created";
-        return message;
 
+    @GetMapping("/create")
+    public String createNewUser(@RequestBody UserDto user){
+        return userService.createUser(user);
+    }
+
+    @PostMapping("/register")
+    public String registerNewUser(@RequestParam("name") String name,
+                                  @RequestParam ("email")String email,
+                                  @RequestParam ("password") String password) {
+      UserDto newDto = UserDto.builder()
+              .name(name)
+              .email(email)
+              .password(password)
+              .build();
+
+      return userService.createUser(newDto);
     }
 }

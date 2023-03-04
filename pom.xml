@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.app</groupId>
-	<artifactId>App</artifactId>
+	<artifactId>Back_End</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>App</name>
 	<description>Project by Ignas Juzėnas</description>
