@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public String createUser(UserDto userDto) {
+    public String createUser(UserDto userDto){
         User newUser = buildNewUser(userDto);
         userRepository.save(newUser);
         return "New user has been created";
