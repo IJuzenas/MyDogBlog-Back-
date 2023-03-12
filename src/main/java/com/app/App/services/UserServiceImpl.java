@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,7 +28,7 @@ public class UserServiceImpl implements UserService{
     public String createUser(UserDto userDto) {
         User newUser = buildNewUser(userDto);
         userRepository.save(newUser);
-        return newUser.getName() !=null ? "success" : "failed";
+        return "New user has been created";
     }
 
     private User buildNewUser(UserDto userDto) {
@@ -35,6 +36,7 @@ public class UserServiceImpl implements UserService{
                 .name(userDto.getName())
                 .email(userDto.getEmail())
                 .password(userDto.getPassword())
+                .joined(LocalDate.now())
                 .build();
 
     }

@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    @Query(value = "SELECT ^ FROM USER", nativeQuery = true)
+    @Query(value = "SELECT * FROM USERS", nativeQuery = true)
     List<User> getAllUsers();
 }
