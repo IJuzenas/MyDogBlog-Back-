@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService{
     public final UserRepository userRepository;
 
     @Override
-    public List<UserDto> getAllUsers() {
+    public List<UserDto> getAllUsers()   {
         return mapToDto(userRepository.getAllUsers());
     }
 
