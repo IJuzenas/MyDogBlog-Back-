@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,7 +24,6 @@ public class UserServiceImpl implements UserService{
     public List<UserDto> getAllUsers()   {
         return mapToDto(userRepository.getAllUsers());
     }
-
     @Override
     public String createUser(UserDto userDto){
         User newUser = buildNewUser(userDto);
@@ -33,6 +33,7 @@ public class UserServiceImpl implements UserService{
 
     private User buildNewUser(UserDto userDto) {
         return User.builder()
+                .id(userDto.getId())
                 .name(userDto.getName())
                 .email(userDto.getEmail())
                 .password(userDto.getPassword())
@@ -47,6 +48,7 @@ public class UserServiceImpl implements UserService{
                         .name(o.getName())
                         .email(o.getEmail())
                         .password(o.getPassword())
+                        .joined(o.getJoined())
                         .build())
                 .collect(Collectors.toList());
     }
